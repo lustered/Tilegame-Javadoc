@@ -8,8 +8,7 @@ public class Board {
     public Board() {
         // TO DO: Code the body of this method
         board = new ArrayList<NumberTile>();
-        NumberTile tile = new NumberTile();
-        board.add(tile);
+        board.add(new NumberTile());
     }
 
     // Return the NumberTile at the specified index on this Board
@@ -41,9 +40,9 @@ public class Board {
         // TO DO: Code the body of this method
 
         // temporary return statement so program skeleton will compile and run
-        String tiles = "\n ";
+        String tiles = " ";
         for (NumberTile t : board)
-            tiles += t;
+            tiles += "\n"+t;
         return tiles;
 
     }

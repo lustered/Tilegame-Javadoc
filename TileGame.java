@@ -11,6 +11,7 @@ public class TileGame {
     // Creates a new TileGame with two initial hands and a board
     public TileGame(Hand firstHand, Hand secondHand) {
         // TO DO: Code the body of this method
+        board = new Board();
         hand1 = firstHand;
         hand2 = secondHand;
     }
@@ -21,18 +22,19 @@ public class TileGame {
         boolean gameOver = false;
 
         while (!gameOver) {
+            System.out.println("Player 1 Play");
             makeMove(hand1);
+            System.out.println("Player 2 Play");
             makeMove(hand2);
 
-            // By using XOR we don't need to check for both empty hands
-            if ((hand1.isEmpty() ^ hand2.isEmpty())) {
+            if (hand1.isEmpty() || hand2.isEmpty()) {
                 gameOver = true;
-                if (hand1.isEmpty())
-                    winner = "Player 1 Wins!";
+                if(hand1.isEmpty() && hand2.isEmpty())
+                    winner = "\t[::It is a tie!::]";
+                else if (hand1.isEmpty())
+                    winner = "\t[::Player 1 Wins!::]";
                 else if (hand2.isEmpty())
-                    winner = "Player 2 Wins!";
-                else
-                    winner = "It is a tie!";
+                    winner = "\t[::Player 2 Wins!::]";
             }
         }
     }
@@ -76,18 +78,20 @@ public class TileGame {
     private void makeMove(Hand hand) {
         // TO DO: Code the body of this method
 
-        outerloop: for (int i = 0; i < hand.getSize(); i++) {
+        outer: for (int i = 0; i < hand.getSize(); i++) {
             // int fitTileIndex = getIndexForFit(hand.get(i));
             NumberTile tile = hand.get(i);
 
             for (int j = 0; j < 3; j++) {
                 int checkFitIndex = getIndexForFit(tile);
-                if (checkFitIndex == -1)
+                if (checkFitIndex == -1){
                     tile.rotate();
+                    }
                 else {
-                    board.addTile(checkFitIndex, hand.get(checkFitIndex));
-                    hand.removeTile(checkFitIndex);
-                    break outerloop;
+                    board.addTile(checkFitIndex, tile);
+                    hand.removeTile(i);
+                    break outer;
+                    // break;
                 }
 
             }
@@ -96,16 +100,19 @@ public class TileGame {
 
     }
 
-    // Return results of the game as a humongous multi-line String containing
-    // the final board, both both player's final hands, and the winner
+    /** 
+      Returns a String with the ending state for the Board , Hand objects.
+     */
     public String getResults() {
         // TO DO: Code the body of this method
         // HINT: call toString for the board and for each hand and don't
         // forget the winner
+        // asdad
 
         // temporary return statement so program skeleton will compile and run
-        String divider = new String(new char[140]).replace("\0", "-");
-        return String.format("Results" + divider + board.toString() + "Final Hands" + divider + hand1.toString()
-                + hand2.toString() + "\n" + winner);
+        String divider = new String(new char[80]).replace("\0", "*");
+        return String.format("\n\t::Results::\n" + divider + board.toString() + "\n\t::Final Hands::\n" + divider + "\n\n\t::Player 1 Final Hand::\n"+hand1.toString()
+                + "\n\n\t::Player 2 Final Hand::\n"+hand2.toString() + "\n" + winner);
+        
     }
 } // end of TileGame2 class

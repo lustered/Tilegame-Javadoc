@@ -65,7 +65,7 @@ public class Hand {
         // return "The hand";
         String h = "";
         if (hand.isEmpty())
-            return "Hand is Empty";
+            return "\n\t[::Hand is Empty::]\n";
         else
             for (NumberTile tile : hand)
                 h += "\n" + tile;
