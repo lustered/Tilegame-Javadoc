@@ -7,6 +7,7 @@ public class Board {
     // Creates a new Board containing a single NumberTile
     public Board() {
         // TO DO: Code the body of this method
+        board = new ArrayList<NumberTile>();
         NumberTile tile = new NumberTile();
         board.add(tile);
     }
