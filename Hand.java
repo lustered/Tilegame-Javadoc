@@ -8,6 +8,7 @@ public class Hand {
     // Creates a new hand of INITIAL_SIZE NumberTiles
     public Hand() {
         // TO DO: Code the body of this method
+        hand = new ArrayList<NumberTile>();
         for (int i = 0; i < INITIAL_SIZE; i++) {
             NumberTile tile = new NumberTile();
             hand.add(tile);
@@ -67,7 +68,7 @@ public class Hand {
             return "Hand is Empty";
         else
             for (NumberTile tile : hand)
-                h += tile;
+                h += "\n" + tile;
         return h;
 
     }

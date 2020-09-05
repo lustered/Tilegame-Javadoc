@@ -9,9 +9,11 @@ public class NumberTile {
     // Create a NumberTile object with 4 random ints in the range 1 to 9
     public NumberTile() {
         // TO DO: Code the body of this method
-        int n = gen.nextInt(9);
-        for (int i = 0; i < 4; i++)
+        tile = new ArrayList<Integer>();
+        for (int i = 0; i < 4; i++) {
+            int n = gen.nextInt(9);
             tile.add(n + 1);
+        }
     }
 
     // Rotate this NumberTile 90 degrees

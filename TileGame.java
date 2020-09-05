@@ -1,4 +1,3 @@
-
 // Implements a domino-like game where two players, both of whom are
 // the computer, take turns inserting NumberTiles into a Board
 public class TileGame {
@@ -25,6 +24,7 @@ public class TileGame {
             makeMove(hand1);
             makeMove(hand2);
 
+            // By using XOR we don't need to check for both empty hands
             if ((hand1.isEmpty() ^ hand2.isEmpty())) {
                 gameOver = true;
                 if (hand1.isEmpty())
@@ -44,10 +44,9 @@ public class TileGame {
     private int getIndexForFit(NumberTile tile) {
         // TO DO: Code the body of this method
 
-        // TODO: what does he mean by "new first tile"
-        // Check at the beginning of the game
-        // if (board.getSize() == 1 && board.getTile(0).getRight() == tile.getLeft())
-        // return 1;
+        // Check for the new first tile
+        if (board.getTile(0).getLeft() == tile.getRight())
+            return 0;
 
         // Check for last tile
         int lastTile = board.getSize() - 1;
@@ -57,7 +56,7 @@ public class TileGame {
         // The only way to place a tile between other 2 is if the tile has
         // the same value for the center
         if (tile.getLeft() == tile.getRight())
-            for (int i = 2; i < board.getSize() - 1; i++) {
+            for (int i = 1; i < board.getSize() - 1; i++) {
 
                 int rightTile = board.getTile(i).getRight();
                 // Doesn't matter which tile is checked
@@ -76,6 +75,25 @@ public class TileGame {
     // to the hand
     private void makeMove(Hand hand) {
         // TO DO: Code the body of this method
+
+        outerloop: for (int i = 0; i < hand.getSize(); i++) {
+            // int fitTileIndex = getIndexForFit(hand.get(i));
+            NumberTile tile = hand.get(i);
+
+            for (int j = 0; j < 3; j++) {
+                int checkFitIndex = getIndexForFit(tile);
+                if (checkFitIndex == -1)
+                    tile.rotate();
+                else {
+                    board.addTile(checkFitIndex, hand.get(checkFitIndex));
+                    hand.removeTile(checkFitIndex);
+                    break outerloop;
+                }
+
+            }
+
+        }
+
     }
 
     // Return results of the game as a humongous multi-line String containing
