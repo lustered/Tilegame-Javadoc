@@ -28,10 +28,10 @@ public class TileGame {
             if ((hand1.isEmpty() ^ hand2.isEmpty())) {
                 gameOver = true;
                 if (hand1.isEmpty())
-                    winner = "Player 1";
-                if (hand2.isEmpty())
-                    winner = "Player 2";
-                if (hand1.isEmpty() && hand2.isEmpty())
+                    winner = "Player 1 Wins!";
+                else if (hand2.isEmpty())
+                    winner = "Player 2 Wins!";
+                else
                     winner = "It is a tie!";
             }
         }
@@ -43,30 +43,29 @@ public class TileGame {
     // existing tiles, (2) as the new first tile, or (3) as the new last tile
     private int getIndexForFit(NumberTile tile) {
         // TO DO: Code the body of this method
-        int fitTile = -1;
-        System.out.println(board.getSize());
 
-        // beginning of the game
-        if (board.getSize() == 1 && board.getTile(0).getRight() == tile.getLeft())
-            return 1;
+        // TODO: what does he mean by "new first tile"
+        // Check at the beginning of the game
+        // if (board.getSize() == 1 && board.getTile(0).getRight() == tile.getLeft())
+        // return 1;
 
-        // For last tile
+        // Check for last tile
         int lastTile = board.getSize() - 1;
-        if (board.getTile(lastTile).getRight() == tile.getRight())
+        if (board.getTile(lastTile).getRight() == tile.getLeft())
             return board.getSize();
 
+        // The only way to place a tile between other 2 is if the tile has
+        // the same value for the center
         if (tile.getLeft() == tile.getRight())
             for (int i = 2; i < board.getSize() - 1; i++) {
 
                 int rightTile = board.getTile(i).getRight();
-
-                // Doesn't matter either tile checked since they have
-                // to be the same to pass the check
+                // Doesn't matter which tile is checked
                 if (tile.getRight() == rightTile)
                     return i + 1;
             }
 
-        return fitTile;
+        return -1;
     }
 
     // Utility method called by method play(). Checks consecutive tiles in the
@@ -87,6 +86,8 @@ public class TileGame {
         // forget the winner
 
         // temporary return statement so program skeleton will compile and run
-        return "Results";
+        String divider = new String(new char[140]).replace("\0", "-");
+        return String.format("Results" + divider + board.toString() + "Final Hands" + divider + hand1.toString()
+                + hand2.toString() + "\n" + winner);
     }
 } // end of TileGame2 class
