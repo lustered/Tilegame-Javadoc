@@ -19,7 +19,16 @@ public class NumberTile {
     // Rotate this NumberTile 90 degrees
     public void rotate() {
         // TO DO: Code the body of this method
-        tile.add(0, tile.remove(3));
+        // This is no good
+        // tile.add(0, tile.remove(3));
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+        tmp.add(tile.get(1));
+        tmp.add(tile.get(3));
+        tmp.add(tile.get(0));
+        tmp.add(tile.get(2));
+        for (int i = 0; i < tile.size(); i++) {
+            tile.set(i, tmp.get(i));
+        }
     }
 
     // Return the number on the left side of this NumberTile
