@@ -1,6 +1,6 @@
 // Implements a domino-like game where two players, both of whom are
 // the computer, take turns inserting NumberTiles into a Board
-public class TileGame {
+public class TileGameDebug {
     // instance vars
     private Board board; // the game board
     private Hand hand1; // Player 1 hand
@@ -9,7 +9,7 @@ public class TileGame {
                            // or a tie game
 
     // Creates a new TileGame with two initial hands and a board
-    public TileGame(Hand firstHand, Hand secondHand) {
+    public TileGameDebug(Hand firstHand, Hand secondHand) {
         // TO DO: Code the body of this method
         board = new Board();
         hand1 = firstHand;
@@ -22,7 +22,9 @@ public class TileGame {
         boolean gameOver = false;
 
         while (!gameOver) {
+            System.out.println("Player 1 Play");
             makeMove(hand1);
+            System.out.println("Player 2 Play");
             makeMove(hand2);
             // System.out.println(hand1.getSize());
             // System.out.println(hand2.getSize());
@@ -82,17 +84,18 @@ public class TileGame {
         // grab each tile in the hand
         outer: for (int i = 0; i < hand.getSize(); i++) {
             // Extract each tile
+            System.out.println("tile grabbed");
             NumberTile tile = hand.get(i);
             // check tile for match
             for (int j = 0; j < 3; j++) {
                 // Use helper method to check if the tile fits with
                 // Its current position
                 int checkFitIndex = getIndexForFit(tile);
-
-                // getIndexForFit() returns -1 if no match found
                 if (checkFitIndex == -1) {
                     tile.rotate();
+                    System.out.println("tile rotated");
                 } else if (checkFitIndex != -1) {
+                    System.out.println("IT IS A MATCH");
                     board.addTile(checkFitIndex, tile);
                     hand.removeTile(i);
                     matchFound = true;
@@ -118,6 +121,7 @@ public class TileGame {
         // TO DO: Code the body of this method
         // HINT: call toString for the board and for each hand and don't
         // forget the winner
+        // asdad
 
         // temporary return statement so program skeleton will compile and run
         String divider = new String(new char[80]).replace("\0", "*");
