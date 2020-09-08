@@ -8,7 +8,6 @@ public class Board {
      * Creates a new Board containing a single random NumberTile
      */
     public Board() {
-        // TO DO: Code the body of this method
         board = new ArrayList<NumberTile>();
         board.add(new NumberTile());
     }
@@ -37,7 +36,6 @@ public class Board {
      * @param tile  NumberTile to be inseted into the board
      */
     public void addTile(int index, NumberTile tile) {
-        // TO DO: Code the body of this method
         board.add(index, tile);
     }
 
@@ -45,13 +43,9 @@ public class Board {
      * @return Return a multiline string containing all the tiles on this Board
      */
     public String toString() {
-        // TO DO: Code the body of this method
-
-        // temporary return statement so program skeleton will compile and run
         String tiles = " ";
         for (NumberTile t : board)
             tiles += "\n" + t;
         return tiles;
-
     }
 }
