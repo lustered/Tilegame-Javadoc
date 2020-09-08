@@ -70,7 +70,7 @@ public class TileGame {
         boolean matchFound = false;
 
         // grab each tile in the hand
-        for (int i = 0; i < hand.getSize(); i++) {
+        outer: for (int i = 0; i < hand.getSize(); i++) {
 
             // Extract each tile
             NumberTile tile = hand.get(i);
@@ -89,7 +89,7 @@ public class TileGame {
                     hand.removeTile(i);
                     matchFound = true;
                     // No need to keep iterating
-                    break;
+                    break outer;
                 }
 
             }
