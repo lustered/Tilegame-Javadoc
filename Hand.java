@@ -5,71 +5,75 @@ public class Hand {
     private ArrayList<NumberTile> hand;
     private final static int INITIAL_SIZE = 5; // starting hand size
 
-    // Creates a new hand of INITIAL_SIZE NumberTiles
+    /**
+     * Creates a new hand of INITIAL_SIZE NumberTiles
+     */
     public Hand() {
-        // TO DO: Code the body of this method
         hand = new ArrayList<NumberTile>();
         for (int i = 0; i < INITIAL_SIZE; i++) {
-            NumberTile tile = new NumberTile();
-            hand.add(tile);
+            hand.add(new NumberTile());
         }
     }
 
-    // Get the NumberTile at the specified index in this Hand
+    /**
+     * Get the NumberTile at the specified index in this Hand
+     * 
+     * @param index index of the NumberTile
+     * @return NumberTile at the specified index
+     */
     public NumberTile get(int index) {
-        // TO DO: Code the body of this method
-
-        // temporary return statement so program skeleton will compile and run
-        // return null;
         return hand.get(index);
     }
 
-    // Get the number of tiles in this Hand
+    /**
+     * Get the number of tiles in this Hand
+     * 
+     * @return return the size of the hand
+     */
     public int getSize() {
-        // TO DO: Code the body of this method
-
-        // temporary return statement so program skeleton will compile and run
-        // return -999;
         return hand.size();
 
     }
 
-    // Add a new NumberTile to this Hand
+    /**
+     * Add a new random NumberTile to this Hand
+     */
     public void addTile() {
-        // TO DO: Code the body of this method
         NumberTile tile = new NumberTile();
         hand.add(tile);
     }
 
-    // Remove the NumberTile at the specified index from this Hand
+    /**
+     * Remove the NumberTile at the specified index from this Hand
+     * 
+     * @param index Index of the NumberTile element to remove from Hand
+     */
     public void removeTile(int index) {
-        // TO DO: Code the body of this method
         hand.remove(index);
     }
 
-    // Is this hand empty?
+    /**
+     * Check if Hand is empty
+     * 
+     * @return boolean true if Hand is empty, else false
+     */
     public boolean isEmpty() {
-        // TO DO: Code the body of this method
-
-        // temporary return statement so program skeleton will compile and run
-        // return false ;
         return hand.isEmpty();
     }
 
-    // Return this Hand as a multiline String.
-    // If this Hand is empty, return an appropriate message
+    /**
+     * @return Return this hand as a multiline String if it has elements, otherwise
+     *         return a messaging saying so
+     */
     public String toString() {
-        // TO DO: Code the body of this method
+        String handPrint = "";
 
-        // temporary return statement so program skeleton will compile and run
-        // return "The hand";
-        String h = "";
         if (hand.isEmpty())
             return "\n\t[::Hand is Empty::]\n";
         else
+            // iterate over every tile and append it to the return
             for (NumberTile tile : hand)
-                h += "\n" + tile;
-        return h;
-
+                handPrint += "\n" + tile;
+        return handPrint;
     }
 }

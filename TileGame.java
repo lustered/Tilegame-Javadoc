@@ -8,24 +8,26 @@ public class TileGame {
     private String winner; // the winner - player1, player2,
                            // or a tie game
 
-    // Creates a new TileGame with two initial hands and a board
+    /**
+     * Create TileGame object
+     * 
+     * @param firstHand  first unique Hand object
+     * @param secondHand second unique Hand object
+     */
     public TileGame(Hand firstHand, Hand secondHand) {
-        // TO DO: Code the body of this method
+
         board = new Board();
         hand1 = firstHand;
         hand2 = secondHand;
     }
 
-    // Players take turn moving until one or both hand are empty
     public void play() {
-        // TO DO: Code the body of this method
+
         boolean gameOver = false;
 
         while (!gameOver) {
             makeMove(hand1);
             makeMove(hand2);
-            // System.out.println(hand1.getSize());
-            // System.out.println(hand2.getSize());
 
             if (hand1.isEmpty() || hand2.isEmpty()) {
                 gameOver = true;
@@ -39,52 +41,42 @@ public class TileGame {
         }
     }
 
-    // Utility method called by method makeMove. Returns the index at which a
-    // new tile will be inserted into the board, or -1 if the tile cannot
-    // be inserted. The new tile may be inserted either (1) between two
-    // existing tiles, (2) as the new first tile, or (3) as the new last tile
     private int getIndexForFit(NumberTile tile) {
-        // TO DO: Code the body of this method
-
         // Check for the new first tile
         if (board.getTile(0).getLeft() == tile.getRight())
             return 0;
 
         // Check for last tile
-        int lastTile = board.getSize() - 1;
-        if (board.getTile(lastTile).getRight() == tile.getLeft())
+        int lastTileIndex = board.getSize() - 1;
+        if (board.getTile(lastTileIndex).getRight() == tile.getLeft())
             return board.getSize();
 
         // The only way to place a tile between other 2 is if the tile has
-        // the same value for the center
+        // the same value for the center elements
         if (tile.getLeft() == tile.getRight())
             for (int i = 1; i < board.getSize() - 1; i++) {
 
-                int rightTile = board.getTile(i).getRight();
-                // Doesn't matter which tile is checked
-                if (tile.getRight() == rightTile)
+                // right element of the tile on the board
+                int rightTileElement = board.getTile(i).getRight();
+                if (tile.getRight() == rightTileElement)
+                    // i+1 is in front of the tile checked
                     return i + 1;
             }
 
         return -1;
     }
 
-    // Utility method called by method play(). Checks consecutive tiles in the
-    // hand - by calling method getIndexForFit() - to see if one can be inserted
-    // into the board. When the first tile that fits is found, removes it from
-    // the hand, inserts it into the board, and the move ends. The tile may be
-    // rotated up to 3 times. If none of the tiles fit, adds a new, random tile
-    // to the hand
     private void makeMove(Hand hand) {
-        // TO DO: Code the body of this method
-
         boolean matchFound = false;
+
         // grab each tile in the hand
         outer: for (int i = 0; i < hand.getSize(); i++) {
+
             // Extract each tile
             NumberTile tile = hand.get(i);
-            // check tile for match
+            // check tile for match up to 3 rotations
             for (int j = 0; j < 3; j++) {
+
                 // Use helper method to check if the tile fits with
                 // Its current position
                 int checkFitIndex = getIndexForFit(tile);
@@ -112,18 +104,15 @@ public class TileGame {
     }
 
     /**
-     * Returns a String with the ending state for the Board , Hand objects.
+     * Returns a String with the ending state for the Board , Hand objects and
+     * winner.
+     * 
+     * @return String
      */
     public String getResults() {
-        // TO DO: Code the body of this method
-        // HINT: call toString for the board and for each hand and don't
-        // forget the winner
-
-        // temporary return statement so program skeleton will compile and run
         String divider = new String(new char[80]).replace("\0", "*");
         return String.format("\n\t::Results::\n" + divider + board.toString() + "\n\t::Final Hands::\n" + divider
                 + "\n\n\t::Player 1 Final Hand::\n" + hand1.toString() + "\n\n\t::Player 2 Final Hand::\n"
                 + hand2.toString() + "\n" + winner);
-
     }
-} // end of TileGame2 class
+}
